@@ -37,8 +37,22 @@ const MORSE_TABLE = {
     '-----':  '0',
 };
 
+let space = {
+  '**********': ' '
+};
+for (let key of Object.keys(MORSE_TABLE)) {
+  let change = key.replace(/-/g, '11').replace(/\./g, '10').padStart(10, '00');
+  space[change] = MORSE_TABLE[key];
+}
+
 function decode(expr) {
-    // write your solution here
+  let arr = expr.match(/.{10}/g);
+
+  let result = arr.map(function (elem) {
+    let item = space[elem];
+    return item;
+  }).join('');
+  return result;
 }
 
 module.exports = {
